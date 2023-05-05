@@ -4,6 +4,7 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { notify } from './toast';
 import Styles from "./SignUp.module.css"
+import { Link } from 'react-router-dom';
 
 const SignUp = () => {
     const[data,setData]= useState({
@@ -55,7 +56,7 @@ const SignUp = () => {
             }
         }
     return (
-        <div>   
+        <div className={Styles.container}>   
             <form onSubmit={submitHandler} className={Styles.formContainer}>
               <h1 className={Styles.header}>SignUp</h1>
                     <div  className={Styles.formField}>
@@ -91,7 +92,7 @@ const SignUp = () => {
                         
                     </div>
                     <div className={Styles.formButtons} >
-                        <a href="#">Login</a>
+                        <Link to="/login">Login</Link>
                         <button  type='submit'>SignUp</button>
                     </div>
             </form>
