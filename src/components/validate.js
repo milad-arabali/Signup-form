@@ -1,14 +1,8 @@
-export const validate = data =>{
+export const validate = (data,type) =>{
     const error={
 
     }
-    if(!data.Name.trim()){
-        error.Name="username required"
-
-
-    }else{
-        delete error.Name
-    }
+   
     if(!data.Email){
         error.Email="Email required"
 
@@ -29,17 +23,37 @@ export const validate = data =>{
     }else{
         delete error.Password
     }
-    if(!data.ConfrimPassword){
-        error.ConfrimPassword="confrim the password"
-    }else if(data.ConfrimPassword !== data.Password){
-        error.ConfrimPassword="password is not match"
-    }else{
-        delete error.ConfrimPassword
+    
+    if(type === "Signup"){
+        
+        if(!data.Name.trim()){
+            error.Name="username required"
+    
+    
+        }else{
+            delete error.Name
+        }
+        if(!data.ConfrimPassword){
+            error.ConfrimPassword="confrim the password"
+        }else if(data.ConfrimPassword !== data.Password){
+            error.ConfrimPassword="password is not match"
+        }else{
+            delete error.ConfrimPassword
+        }
+        if(data.IsAccepted){
+            delete error.IsAccepted
+        }else{
+            error.IsAccepted="Accept our regulation"
+        }
+
+
     }
-    if(data.IsAccepted){
-        delete error.IsAccepted
-    }else{
-        error.IsAccepted="Accept our regulation"
-    }
+
+
+
+
+
+
+
     return error;
 }

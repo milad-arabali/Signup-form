@@ -5,30 +5,23 @@ import 'react-toastify/dist/ReactToastify.css';
 import { notify } from './toast';
 import Styles from "./SignUp.module.css"
 
-const SignUp = () => {
+const Login = () => {
     const[data,setData]= useState({
-        Name:"",
+       
         Email:"",
         Password:"",
-        ConfrimPassword:"",
-        IsAccepted:false
+      
 
     })
     const [useerror,setUseerror]= useState({})
     const [focuserror,setFocuserror]= useState({})
     useEffect(()=>{
-            setUseerror(validate(data ,"Signup"))
+            setUseerror(validate(data ,"Login"))
             // console.log(useerror);
     },[data,focuserror])
         const changehander= event => {
             if(event.target.name === "IsAccepted"){
-                setData({...data,[event.target.name]: event.target.checked})
-
-            }else
-            {
-
                 setData({...data,[event.target.name]: event.target.value})
-
             }
             console.log(data)
         }
@@ -40,29 +33,23 @@ const SignUp = () => {
         const submitHandler = event =>{
             event.preventDefault();
             if(!Object.keys(useerror).length){
-                notify("success ","success");
+                notify("Login success ","success");
             }
             else{
                 notify("invalid data ","error");
                 setFocuserror({
-                    Name:true,
+                
                     Email:true,
                     Password:true,
-                    ConfrimPassword:true,
-                    IsAccepted:true
+                   
                 })
                 
             }
         }
     return (
-        <div>   
+        <div className={Styles.container}>   
             <form onSubmit={submitHandler} className={Styles.formContainer}>
-              <h1 className={Styles.header}>SignUp</h1>
-                    <div  className={Styles.formField}>
-                        <label>Name</label>
-                        <input  className={(useerror.Name && focuserror.Name) ? Styles.uncompleted : Styles.formInput} type='text' name="Name" value={data.Name} onChange={changehander} onFocus={focushandler}/>                    
-                        {useerror.Name && focuserror.Name && <span>{useerror.Name}</span>}
-                    </div>
+              <h1 className={Styles.header}>Login</h1>
                     <div className={Styles.formField}>
                         <label>Email</label>
                         <input className={(useerror.Email && focuserror.Email) ? Styles.uncompleted : Styles.formInput} type='text' name="Email" value={data.Email} onChange={changehander}  onFocus={focushandler}/>                    
@@ -75,24 +62,9 @@ const SignUp = () => {
                         {useerror.Password && focuserror.Password && <span>{useerror.Password}</span>}
 
                     </div>
-                    <div className={Styles.formField}> 
-                        <label>ConfrimPassword</label>
-                        <input className={(useerror.ConfrimPassword && focuserror.ConfrimPassword) ? Styles.uncompleted : Styles.formInput} type='Password' name="ConfrimPassword" value={data.ConfrimPassword} onChange={changehander} onFocus={focushandler}/>                    
-                        {useerror.ConfrimPassword && focuserror.ConfrimPassword && <span>{useerror.ConfrimPassword}</span>}
-
-                
-                    </div>
-                    <div className={Styles.formField}>
-                        <div className={Styles.checkBoxContainer}>
-                            <label>I accepred terms privacy policy</label>          
-                            <input className={(useerror.IsAccepted && focuserror.IsAccepted) ? Styles.uncompleted : Styles.formInput} type='checkbox' name="IsAccepted" value={data.IsAccepted} onChange={changehander} onFocus={focushandler}/>                    
-                        </div>
-                        {useerror.IsAccepted && focuserror.IsAccepted && <span>{useerror.IsAccepted}</span>}
-                        
-                    </div>
                     <div className={Styles.formButtons} >
-                        <a href="#">Login</a>
-                        <button  type='submit'>SignUp</button>
+                        <a href="#">SignUp</a>
+                        <button  type='submit'>Login</button>
                     </div>
             </form>
             <ToastContainer />
@@ -101,4 +73,4 @@ const SignUp = () => {
     );
 };
 
-export default SignUp;
+export default Login;
