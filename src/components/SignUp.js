@@ -1,5 +1,8 @@
 import React ,{useState ,useEffect}from 'react';
 import { validate } from './validate';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { notify } from './toast';
 
 const SignUp = () => {
     const[data,setData]= useState({
@@ -33,13 +36,30 @@ const SignUp = () => {
                 setFocuserror({...focuserror,[event.target.name]:true})
 
         }
+        const submitHandler = event =>{
+            event.preventDefault();
+            if(!Object.keys(useerror).length){
+                notify("success ","success");
+            }
+            else{
+                notify("invalid data ","error");
+                setFocuserror({
+                    Name:true,
+                    Email:true,
+                    Password:true,
+                    ConfrimPassword:true,
+                    IsAccepted:true
+                })
+                
+            }
+        }
     return (
         <div>   
-            <form>
+            <form onSubmit={submitHandler}>
               <h1>SignUp</h1>
                     <div>
                         <label>Name</label>
-                        <input type='text' name="Name" value={data.name} onChange={changehander} onFocus={focushandler}/>                    
+                        <input type='text' name="Name" value={data.Name} onChange={changehander} onFocus={focushandler}/>                    
                         {useerror.Name && focuserror.Name && <span>{useerror.Name}</span>}
                     </div>
                     <div>
@@ -63,6 +83,7 @@ const SignUp = () => {
                     </div>
                     <div>
                         <label>I accepred terms privacy policy</label>   
+                                          
                         <input type='checkbox' name="IsAccepted" value={data.IsAccepted} onChange={changehander} onFocus={focushandler}/>                    
                         {useerror.IsAccepted && focuserror.IsAccepted && <span>{useerror.IsAccepted}</span>}
                         
@@ -72,7 +93,9 @@ const SignUp = () => {
                         <button  type='submit'>SignUp</button>
                     </div>
             </form>
+            <ToastContainer />
         </div> 
+        
     );
 };
 
